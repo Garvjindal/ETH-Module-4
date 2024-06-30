@@ -110,7 +110,3 @@ Users can redeem tokens for game items by calling the `redeemTokens` function wi
 - Only the contract owner can mint new tokens.
 - Users must have sufficient balance to transfer or burn tokens.
 - Redeeming tokens for game items requires meeting specific token thresholds.
-
-## License
-
-This project is licensed under the MIT License.
