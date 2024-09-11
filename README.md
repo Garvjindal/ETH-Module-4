@@ -1,112 +1,44 @@
-# GamerToken Smart Contract
+# Eth-intermediate-module-4
+*Aim of the Project*
+Create an ERC20 token and deploy it on the Avalanche network for Degen Gaming. It consists of minting, burning, transferring, redeeming tokens, and checking the account balance.
 
-## Overview
 
-The `GamerToken` smart contract is a simple ERC20-like token implemented in Solidity. This token is designed to manage a custom cryptocurrency called `GAMER` (symbol: `GMR`). The contract owner can mint and burn tokens, and users can transfer tokens between accounts and redeem tokens for game items.
+*Logic of the code*
 
-## Contract Details
+1. Write the license identifier and solidity version.
 
-### Variables
+2. Import the open Zeppelin contracts and hardhat/console.sol dependencies.
 
-- `totalSupply`: The total supply of `GMR` tokens.
-- `owner`: The address of the contract owner.
-- `name`: The name of the token (`GAMER`).
-- `symbol`: The symbol of the token (`GMR`).
-- `decimalUnits`: The number of decimal places the token uses (18).
+3. Create a contract named as DegenToken which is Ownable and ERC20Burnable.
 
-### Mappings
+4. It consists of a constructor which defines the name and symbol of the token as "Degen Token" and "DGN " respectively.
 
-- `accountBalances`: Maps an address to its token balance.
+5. The function mint_tokens consists of minting a specific amount to a particular address. It is declared public so that it can be accessed outside the contract.
 
-### Constructor
+6. The transfer_Token function takes the receiver's address and amount to be transferred as its parameters. It has a require statement that confirms that the balance of the sender should be greater than or equal to the amount to be transferred else the string message is returned. If the condition returns to true, then the approve  and transferFrom  function transfers the tokens(amount) from the sender to the receiver.
 
-The constructor sets the contract owner to the address that deploys the contract.
+7. The getBalance function is declared external and returns the unsigned int value of the valance in the sender's account/address.
 
-### Functions
+8. The burn_Tokens take the unsigned int value of the amount as its parameter. It is declared as external. The require statement checks that the balance of the sender should be greater than or equal to the amount to be transferred else the string message is returned. If the condition returns to the true, then the burn function burns the specific amount of tokens from the sender's account.
 
-#### `mintTokens(address recipient, uint256 amount)`
+9. The redeem_Tokens is declared public and pure. It returns the five rewards(strings) which will be redeemed if the conditions are satisfied.
 
-This function allows the contract owner to mint new tokens.
+10. The user enters a particular number. The require statement checks that the entered number should be less than the total number of the choices provided, if yes then the condition matching with the choice is executed and that particular numbered reward is redeemed by paying the listed tokens.
 
-- **Parameters**:
-  - `recipient`: The address to receive the minted tokens.
-  - `amount`: The number of tokens to mint.
-- **Requirements**:
-  - Only the contract owner can call this function.
-  - The `amount` must be greater than 0.
-- **Behavior**:
-  - Increases the balance of the `recipient` by `amount`.
-  - Increases the `totalSupply` by `amount`.
+*Functionality of the code*
 
-#### `burnTokens(address account, uint256 amount)`
+1. Open the Remix IDE(https://remix.ethereum.org) and clone the repository provided in the module.
 
-This function allows the burning of tokens from a specified account.
+2. Open the contacts folder and write the above code.
 
-- **Parameters**:
-  - `account`: The address from which to burn the tokens.
-  - `amount`: The number of tokens to burn.
-- **Requirements**:
-  - The `amount` must not exceed the balance of the `account`.
-- **Behavior**:
-  - Decreases the balance of the `account` by `amount`.
-  - Decreases the `totalSupply` by `amount`.
+3. Compile the DegenToken.sol contract.
 
-#### `transferTokens(address recipient, uint256 amount)`
+4. In the deploy section, select Injected Provider environment which will help us to connect with the metamask.
 
-This function allows a user to transfer tokens to another account.
+5. Paste the address of the account currently running in the meta mask in the At Address section.
 
-- **Parameters**:
-  - `recipient`: The address to receive the tokens.
-  - `amount`: The number of tokens to transfer.
-- **Requirements**:
-  - The `amount` must not exceed the sender's balance.
-  - The `recipient` must not be the zero address.
-- **Behavior**:
-  - Decreases the balance of the sender by `amount`.
-  - Increases the balance of the `recipient` by `amount`.
+6. Open the deployed contract. Run different functions of minting, burning, transferring, redeeming tokens, and checking the account balance.
 
-#### `redeemTokens(address user, uint256 amount, uint256 gameItem)`
+7. Verify the transactions by pasting the same address in the Snowtrace Testnet site.(https://testnet.snowtrace.io)
 
-This function allows a user to redeem tokens for game items.
-
-- **Parameters**:
-  - `user`: The address of the user redeeming the tokens.
-  - `amount`: The number of tokens to redeem.
-  - `gameItem`: The ID of the game item to redeem.
-- **Requirements**:
-  - The `amount` must not exceed the user's balance.
-  - The `gameItem` must be valid (1, 2, or 3).
-  - Different game items have different token requirements:
-    - Game Item 1 requires at least 50 tokens.
-    - Game Item 2 requires at least 100 tokens.
-    - Game Item 3 requires at least 200 tokens.
-- **Behavior**:
-  - Calls the `burnTokens` function to burn the tokens from the `user`'s balance.
-
-## Usage
-
-### Deployment
-
-Deploy the `GamerToken` contract using any Ethereum-compatible development environment. The constructor does not take any parameters and sets the deploying address as the contract owner.
-
-### Minting Tokens
-
-The contract owner can mint tokens by calling the `mintTokens` function with the recipient's address and the amount to mint.
-
-### Burning Tokens
-
-Any user can burn their own tokens by calling the `burnTokens` function with their address and the amount to burn.
-
-### Transferring Tokens
-
-Users can transfer tokens to another address by calling the `transferTokens` function with the recipient's address and the amount to transfer.
-
-### Redeeming Tokens
-
-Users can redeem tokens for game items by calling the `redeemTokens` function with their address, the amount of tokens to redeem, and the game item ID.
-
-## Security Considerations
-
-- Only the contract owner can mint new tokens.
-- Users must have sufficient balance to transfer or burn tokens.
-- Redeeming tokens for game items requires meeting specific token thresholds.
+8. If all the tests are passed, then the contract has successfully followed every requirement of the project.
